@@ -118,6 +118,7 @@ emb_dim=50
 
 
 emb_dim_range=list(range(10,20,5))+list(range(20,101,20))
+emb_dim_range=list(range(160,161,20))
 
 
 # In[ ]:
