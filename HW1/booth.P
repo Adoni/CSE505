@@ -1,0 +1,143 @@
+member([X], X).
+member([H|_], H).
+member([_|T], X) :- member(T, X).
+append([],L,L).
+append([H|T],L0,[H|L]):-
+	append(T,L0,L).
+
+remove(X,[X|T],T).
+remove(X,[H|T],[H|L1]) :- remove(X,T,L1).
+
+initialize_pos(BID,Pos,Pos):-
+	booths(Count),
+	BID>Count.
+initialize_pos(BID,PosBefore,Pos):-
+	booths(Count),
+	BID=<Count,
+	position(BID,X,Y),
+	New_BID is BID+1,
+	initialize_pos(New_BID,[[BID,X,Y]|PosBefore],Pos).
+
+initialize_dim(BID,Dims,Dims):-
+	booths(Count),
+	BID>Count.
+
+initialize_dim(BID,DimsBefore,Dims):-
+	booths(Count),
+	BID=<Count,
+	dimension(BID,X,Y),
+	New_BID is BID+1,
+	initialize_dim(New_BID,[[BID,X,Y]|DimsBefore],Dims).
+
+direction(0,1).
+direction(0,-1).
+direction(1,0).
+direction(-1,0).
+
+
+not_cover(BID1,X1,Y1, BID2,X2,Y2):-
+	dimension(BID1,W1,H1),
+	dimension(BID2,W2,H2),
+	(X1>X2+W2-1; X2>X1+W1-1; Y1>Y2+H2-1; Y2>Y1+H1-1).
+
+cover(BID1,X1,Y1, BID2,X2,Y2):-
+	dimension(BID1,W1,H1),
+	dimension(BID2,W2,H2),
+	\+ (X1>X2+W2-1; X2>X1+W1-1; Y1>Y2+H2-1; Y2>Y1+H1-1).
+
+/*
+move(P0, P1):-
+	room(MaxX,MaxY),
+	direction(DX,DY),
+	append(Head,[[BID,X,Y]|Tail],P0),
+	dimension(BID,W,H),
+	NewX is X+DX,
+	NewY is Y+DY,
+	NewX>=0,
+	NewY>=0,
+	NewX+W-1<MaxX,
+	NewY+H-1<MaxY,
+	( 
+		member(P0,[BID2,X2,Y2]),
+		BID2=\=BID,
+		cover(BID,NewX,NewY,BID2,X2,Y2)
+		->
+		fail;
+		%write('Yes'),
+		true
+		),
+	%write('Move '),
+	%write(BID),
+	%write(' to '),
+	%write(DX),
+	%writeln(DY),
+	append(Head,[[BID,NewX,NewY]|Tail],P1).
+*/
+
+move(P0, P1, OldDX, OldDY, DX, DY):-
+	room(MaxX,MaxY),
+	direction(DX,DY),
+	remove([BID,X,Y],P0, Rest),
+	(OldDX+DX=\=0; OldDY+DY=\=0),
+	dimension(BID,W,H),
+	NewX is X+DX,
+	NewY is Y+DY,
+	NewX>=0,
+	NewY>=0,
+	NewX+W-1<MaxX,
+	NewY+H-1<MaxY,
+	( 
+		member(P0,[BID2,X2,Y2]),
+		BID2=\=BID,
+		cover(BID,NewX,NewY,BID2,X2,Y2)
+		->
+		fail;
+		%write('Yes'),
+		true
+		),
+	%write('Move '),
+	%write(BID),
+	%write(' to '),
+	%write(DX),
+	%writeln(DY),
+	P1=[[BID,NewX,NewY]|Rest].
+	
+tryStepCount(UsedCount, MaxStepCount, Pos, OldDX, OldDY):-
+	UsedCount=<MaxStepCount,
+	target(BID,XX,YY),
+	member(Pos,[BID,XX,YY]),
+	!.
+
+tryStepCount(UsedCount, MaxStepCount, Pos, OldDX, OldDY):-
+	UsedCount<MaxStepCount,
+	target(BID,XX,YY),
+	member(Pos,[BID,X,Y]),
+	(XX>X->DisX is XX-X;DisX is X-XX),
+	(YY>Y->DisY is YY-Y;DisY is Y-YY),
+	Dis is DisX+DisY,
+	Dis=<MaxStepCount-UsedCount,
+	(XX=\=X;YY=\=Y),
+	NewUsedCount is UsedCount+1,
+	move(Pos, NewPos, OldDX, OldDY, DX, DY),
+	tryStepCount(NewUsedCount, MaxStepCount, NewPos, DX, DY).
+
+
+main(StepCountNow, MinStepCount):-
+	writeln(StepCountNow),
+	(
+		horizon(MaxCount),
+		StepCountNow>MaxCount
+		->
+		fail;
+		initialize_pos(1,[],InitPos),
+		(	tryStepCount(0,StepCountNow,InitPos, 0, 0) ->
+				MinStepCount is StepCountNow;
+				NewStep is StepCountNow+1,
+				main(NewStep, MinStepCount)
+		)
+	).
+	
+
+
+
+
