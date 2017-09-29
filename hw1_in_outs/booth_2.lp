@@ -6,5 +6,5 @@ dimension(3, 1, 1).
 position(1, 0, 1).
 position(2, 1, 2).
 position(3, 0, 0).
-target(3, 2, 2).
+target(3, 0, 2).
 horizon(10).

@@ -45,40 +45,11 @@ cover(BID1,X1,Y1, BID2,X2,Y2):-
 	dimension(BID2,W2,H2),
 	\+ (X1>X2+W2-1; X2>X1+W1-1; Y1>Y2+H2-1; Y2>Y1+H1-1).
 
-/*
-move(P0, P1):-
-	room(MaxX,MaxY),
-	direction(DX,DY),
-	append(Head,[[BID,X,Y]|Tail],P0),
-	dimension(BID,W,H),
-	NewX is X+DX,
-	NewY is Y+DY,
-	NewX>=0,
-	NewY>=0,
-	NewX+W-1<MaxX,
-	NewY+H-1<MaxY,
-	( 
-		member(P0,[BID2,X2,Y2]),
-		BID2=\=BID,
-		cover(BID,NewX,NewY,BID2,X2,Y2)
-		->
-		fail;
-		%write('Yes'),
-		true
-		),
-	%write('Move '),
-	%write(BID),
-	%write(' to '),
-	%write(DX),
-	%writeln(DY),
-	append(Head,[[BID,NewX,NewY]|Tail],P1).
-*/
-
-move(P0, P1, OldDX, OldDY, DX, DY):-
+move(P0, P1, OldBID, OldDX, OldDY, BID, DX, DY):-
 	room(MaxX,MaxY),
 	direction(DX,DY),
 	remove([BID,X,Y],P0, Rest),
-	(OldDX+DX=\=0; OldDY+DY=\=0),
+	(OldBID=\=BID, OldDX+DX=\=0; OldDY+DY=\=0),
 	dimension(BID,W,H),
 	NewX is X+DX,
 	NewY is Y+DY,
@@ -102,24 +73,33 @@ move(P0, P1, OldDX, OldDY, DX, DY):-
 	%writeln(DY),
 	P1=[[BID,NewX,NewY]|Rest].
 	
-tryStepCount(UsedCount, MaxStepCount, Pos, OldDX, OldDY):-
+tryStepCount(UsedCount, MaxStepCount, Pos, _, _, _):-
 	UsedCount=<MaxStepCount,
-	target(BID,XX,YY),
-	member(Pos,[BID,XX,YY]),
+	target(TargetBID,XX,YY),
+	member(Pos,[TargetBID,XX,YY]),
+	(
+		position(OtherBID,X,Y),
+		TargetBID=\=OtherBID,
+		\+ member(Pos, [OtherBID,X,Y])
+		->
+		fail;
+		writeln(Pos),
+		true
+		),
 	!.
 
-tryStepCount(UsedCount, MaxStepCount, Pos, OldDX, OldDY):-
+tryStepCount(UsedCount, MaxStepCount, Pos, OldBID, OldDX, OldDY):-
 	UsedCount<MaxStepCount,
-	target(BID,XX,YY),
-	member(Pos,[BID,X,Y]),
+	target(TargetBID,XX,YY),
+	member(Pos,[TargetBID,X,Y]),
 	(XX>X->DisX is XX-X;DisX is X-XX),
 	(YY>Y->DisY is YY-Y;DisY is Y-YY),
 	Dis is DisX+DisY,
 	Dis=<MaxStepCount-UsedCount,
-	(XX=\=X;YY=\=Y),
+	%(XX=\=X;YY=\=Y),
 	NewUsedCount is UsedCount+1,
-	move(Pos, NewPos, OldDX, OldDY, DX, DY),
-	tryStepCount(NewUsedCount, MaxStepCount, NewPos, DX, DY).
+	move(Pos, NewPos, OldBID, OldDX, OldDY, BID, DX, DY),
+	tryStepCount(NewUsedCount, MaxStepCount, NewPos, BID, DX, DY).
 
 
 main(StepCountNow, MinStepCount):-
@@ -130,7 +110,7 @@ main(StepCountNow, MinStepCount):-
 		->
 		fail;
 		initialize_pos(1,[],InitPos),
-		(	tryStepCount(0,StepCountNow,InitPos, 0, 0) ->
+		(	tryStepCount(0,StepCountNow,InitPos, 0, 0, 0) ->
 				MinStepCount is StepCountNow;
 				NewStep is StepCountNow+1,
 				main(NewStep, MinStepCount)
