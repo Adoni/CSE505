@@ -5,6 +5,11 @@ append([],L,L).
 append([H|T],L0,[H|L]):-
 	append(T,L0,L).
 
+sumlist([X],X).
+sumlist([X|T], Y):-
+	sumlist(T,ST),
+	Y is ST+X.
+
 remove(X,[X|T],T).
 remove(X,[H|T],[H|L1]) :- remove(X,T,L1).
 
@@ -90,13 +95,17 @@ tryStepCount(UsedCount, MaxStepCount, Pos, _, _, _):-
 
 tryStepCount(UsedCount, MaxStepCount, Pos, OldBID, OldDX, OldDY):-
 	UsedCount<MaxStepCount,
+	writeln(UsedCount),
 	target(TargetBID,XX,YY),
 	member(Pos,[TargetBID,X,Y]),
 	(XX>X->DisX is XX-X;DisX is X-XX),
 	(YY>Y->DisY is YY-Y;DisY is Y-YY),
 	Dis is DisX+DisY,
-	Dis=<MaxStepCount-UsedCount,
-	%(XX=\=X;YY=\=Y),
+	findall(OtherDis,getMinSteps(OtherDis,Pos,TargetBID),AllMinSteps),
+	sumlist([Dis|AllMinSteps],MinSteps),
+	writeln([Dis|AllMinSteps]),
+	writeln(MinSteps),
+	MinSteps=<MaxStepCount-UsedCount,
 	NewUsedCount is UsedCount+1,
 	move(Pos, NewPos, OldBID, OldDX, OldDY, BID, DX, DY),
 	tryStepCount(NewUsedCount, MaxStepCount, NewPos, BID, DX, DY).
@@ -116,7 +125,20 @@ main(StepCountNow, MinStepCount):-
 				main(NewStep, MinStepCount)
 		)
 	).
-	
+
+test():-
+	target(TargetBID,XX,YY),
+	findall([BID,X,Y],position(BID,X,Y), Pos),
+	findall(OtherDis,test2(OtherDis,Pos,TargetBID),AllMinSteps),
+	writeln(AllMinSteps).
+
+getMinSteps(OtherDis, Pos, TargetBID):-
+	position(OtherBID,X0,Y0),
+	member(Pos,[OtherBID,X1,Y1]),
+	OtherBID=\=TargetBID,
+	(X0>X1->OtherDisX is X0-X1;OtherDisX is X1-X0),
+	(Y0>Y1->OtherDisY is Y0-Y1;OtherDisY is Y1-Y0),
+	OtherDis is OtherDisX+OtherDisY.
 
 
 
