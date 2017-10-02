@@ -1,0 +1,105 @@
+member([X|_], X).
+member([_|T], X) :- member(T, X).
+
+append([],L,L).
+append([H|T],L0,[H|L]):-
+	append(T,L0,L).
+
+main(Now,N):-
+	initialize_demand(1,[],Demands),
+	%writeln(Demands),
+	(
+		check(Now,Demands)
+		->
+		N is Now;
+		NewNow is Now+1,
+		main(NewNow,N)
+	).
+	
+initialize_demand(N,Demands,Demands):-
+	dishes(DishN),
+	N>DishN.
+	
+initialize_demand(N,DemandsBefore,Demands):-
+	dishes(DishN),
+	N=<DishN,
+	add_a_dish(N,0,DemandsBefore,NewDemandsBefore),
+	NewN is N+1,
+	initialize_demand(NewN,NewDemandsBefore, Demands).
+
+add_a_dish(N,M,Demands,Demands):-
+	demand(N,M).
+add_a_dish(N,NN,DemandsBefore,Demands):-
+	demand(N,M),
+	NN<M,
+	NewNN is NN+1,
+	add_a_dish(N,NewNN,[N|DemandsBefore],Demands).
+	
+	
+check(N,[]):-
+	N>=0.
+check(N,Demands):-
+	N>0,
+	%writeln('-----'),
+	%writeln(Demands),
+	choose(Demands, New_demands),
+	%writeln(New_demands),
+	%writeln('-----'),
+	check(N-1,New_demands).
+
+choose(Demands, New_demands):-
+	place(0,0, Demands,New_demands).
+
+place(HotW, CoolW, [],[]).
+place(HotW, CoolW, Demands, New_demands):-
+	member(Demands,Dish),
+	(
+		member(Demands,Dish),
+		append(Head,[Dish|Tail],Demands),
+		dish_width(Dish,W),
+		hot(HotCount),
+		(
+			Dish=<HotCount
+			->
+			NewHotW is HotW+W,
+			NewCoolW is CoolW;
+			NewHotW is HotW,
+			NewCoolW is CoolW+W
+		),
+		good_place(NewHotW,NewCoolW),
+		%write('Place '),
+		%writeln(Dish),
+		%writeln(HotW),
+		%writeln(CoolW),
+		%writeln(NewHotW),
+		%writeln(NewCoolW),
+		place(NewHotW,NewCoolW, Tail, New_New_demands),
+		append(Head,New_New_demands,New_demands)
+		->
+		true;
+		New_demands=Demands
+	).
+
+good_place(HotW,CoolW):-
+	table_width(TableW),
+	(HotW=:=0;CoolW=:=0),
+	HotW+CoolW=<TableW.
+
+good_place(HotW,CoolW):-
+	separation(Gap),
+	table_width(TableW),
+	HotW>0,
+	CoolW>0,
+	HotW+CoolW+Gap=<TableW.
+	
+
+test(X, L):-
+	member(L,X),
+	(
+		member(L,X),
+		%writeln(X),
+		fail
+		->
+		!;
+		fail
+	).

@@ -19,4 +19,4 @@ position(7, 1, 2).
 position(8, 2, 2).
 position(9, 3, 2).
 target(1, 3, 3).
-horizon(18).
+horizon(8).
