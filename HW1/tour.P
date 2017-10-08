@@ -1,0 +1,69 @@
+remove(X,[X|T],T).
+remove(X,[H|T],[H|L1]) :- remove(X,T,L1).
+
+member([X|_], X).
+member([_|T], X) :- member(T, X).
+
+append([],L,L).
+append([H|T],L0,[H|L]):-
+	append(T,L0,L).
+
+length([],0).
+length([_|L],Ans):-
+	length(L,AnsT),
+	Ans is AnsT+1.
+	
+initialize(P,Ps,Ps):-
+	places(N),
+	P>N.	
+initialize(P,PsBefore,Ps):-
+	places(N),
+	P=<N,
+	NewP is P+1,
+	initialize(NewP,[P|PsBefore],Ps).
+	
+find_permutation([],Ans,Ans,V,V,_).
+find_permutation(L,AnsBefore,Ans,VBefore,V,Preferance):-
+	remove(X,L,Tail),
+	findall(1,(member(Tail, Y), member(Preferance,[_, Y, X])), Vs),
+	length(Vs,LV),
+	NewV is VBefore+LV,
+	find_permutation(Tail,[X|AnsBefore],Ans,NewV,V,Preferance).
+
+find_min([],Ans,Ans).
+find_min([V|T],AnsBefore,Ans):-
+	(
+		V<AnsBefore
+		->
+		find_min(T,V,Ans);
+		find_min(T,AnsBefore,Ans)
+	).
+
+find_new_preferance(PreferanceNow,[P,P1,P3]):-
+	member(PreferanceNow,[P,P1,P2]),
+	member(PreferanceNow,[P,P2,P3]),
+	\+member(PreferanceNow,[P,P1,P3]).
+
+construct_preferance(PreferanceNow,Preferance):-
+	findall(NewPreferance,find_new_preferance(PreferanceNow,NewPreferance),NewPreferances),
+	(
+		NewPreferances=[]
+		->
+		Preferance=PreferanceNow;
+		append(NewPreferances,PreferanceNow,NewPreferance),
+		construct_preferance(NewPreferance,Preferance)
+	).
+	
+	
+main(violations(Ans)):-
+	initialize(1,[],Ps),
+	findall([P,P1,P2],order(P,P1,P2),PreferanceNow),
+	construct_preferance(PreferanceNow,Preferance).
+	findall(V,find_permutation(Ps,[],_,0,V,Preferance),PossibleV),
+	writeln(PossibleV),
+	find_min(PossibleV,1000000,Ans).
+	
+	 
+
+
+

@@ -1,5 +1,128 @@
+member([X|_], X).
+member([_|T], X) :- member(T, X).
+
+append([],L,L).
+append([H|T],L0,[H|L]):-
+	append(T,L0,L).
+
+remove(X,[X|T],T).
+remove(X,[H|T],[H|L1]) :- remove(X,T,L1).
+
+initialize_state(V,State,State):-
+	vessels(N),
+	V>N.
+	
+initialize_state(V,StateBefore,State):-
+	vessels(N),
+	V=<N,
+	(
+		source(V)
+		->
+		capacity(V, K),
+		NewV is V+1,
+		initialize_state(NewV,[[V,K]|StateBefore],State);
+		NewV is V+1,
+		initialize_state(NewV,[[V,0]|StateBefore],State)
+	).
+
+judge(0,[],_).
+judge(Now,Candidates,Pupos):-
+	member(Candidates,C),
+	Now+C=<Pupos,
+	NewNow is mod(Now+C,Pupos),
+	remove(C,Candidates, Rest),
+	judge(NewNow,Rest,Pupos).
+	
+	
+check(0,State,_,_):-
+	people(NPeople),
+	source(InitV),
+	capacity(InitV, InitK),
+	Mean is InitK//NPeople,
+	(
+		member(State,[_,K]),
+		K>Mean
+		->
+		fail;
+		true
+	),
+	findall(K,member(State,[_,K]),Candidates),
+	judge(0,Candidates,Mean).
+
+check(Step,State,LastSource, LastTarget):-
+	Step>0,
+	remove([SourceV, SourceK], State, TmpRest),
+	SourceK>0,
+	remove([TargetV, TargetK], TmpRest, Rest),
+	(
+		SourceV=LastTarget,
+		TargetV=LastSource
+		->
+		fail;
+		true
+	),
+	capacity(TargetV, FullTargetK),
+	FullTargetK>TargetK,
+	
+	GapK is FullTargetK-TargetK,
+	(
+		SourceK>=GapK
+		->
+		NewSourceK is SourceK-GapK,
+		NewTargetK is FullTargetK;
+		NewSourceK is 0,
+		NewTargetK is TargetK+SourceK
+	),
+	NewStep is Step-1,
+	check(NewStep,[[SourceV, NewSourceK],[TargetV, NewTargetK]|Rest], SourceV, TargetV).
+
+
+main(Now,split(no)):-
+	people(NPeople),
+	source(InitV),
+	capacity(InitV, InitK),
+	RecalculatedK is InitK//NPeople*NPeople,
+	RecalculatedK =\= InitK,
+	!.
+	
+main(Now,split(no)):-
+	horizon(L),
+	Now>L,
+	!.
+	
+main(Now,Ans):-
+	horizon(L),
+	Now=<L,
+	initialize_state(1,[],State),
+	writeln(Now),
+	(
+		check(Now,State,-1,-1)
+		->
+		Ans=split(yes);
+		NewNow is Now+1,
+		main(NewNow,Ans)
+	).
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
