@@ -1,0 +1,117 @@
+remove(X,[X|T],T):-!.
+remove(X,[H|T],[H|L1]) :- X=\=H,remove(X,T,L1).
+
+member([X|_], X).
+member([_|T], X) :- member(T, X).
+
+append([],L,L):-!.
+append([H|T],L0,[H|L]):-
+	append(T,L0,L).
+
+remove_duplicate([],[]):-!.
+remove_duplicate([X],[X]):-!.
+remove_duplicate([X|T],L):-
+	member(T,X),
+	remove_duplicate(T,L),
+	!.
+remove_duplicate([X|T],[X|L]):-
+	remove_duplicate(T,L).
+
+reverse([],Acc,Acc).
+reverse([X|T],Acc,Ans):-
+	reverse(T,[X|Acc],Ans).
+length([],0).
+length([_|L],Ans):-
+	length(L,AnsT),
+	Ans is AnsT+1.
+	
+initialize(P,Ps,Ps):-
+	places(N),
+	P>N.	
+initialize(P,PsBefore,Ps):-
+	places(N),
+	P=<N,
+	NewP  is P+1,
+	initialize(NewP,[P|PsBefore],Ps).
+	
+find_permutation([],Ans,RAns,_):-
+	reverse(Ans,[],RAns),
+	!.
+find_permutation(L,AnsBefore,Ans,Now):-
+	member(L,X),
+	remove(X,L,Rest),
+	place(X,Time,Begin,End),
+	(
+		Now<Begin
+		->
+		BeginVisit is Begin;
+		BeginVisit is Now
+	),
+	(
+		BeginVisit+Time=<End
+		->
+		EndVisit is BeginVisit+Time,
+		find_permutation(Rest,[X|AnsBefore],Ans,EndVisit);
+		reverse(AnsBefore,[],Ans)
+	).
+
+evaluate_permu(Permu, N, [],PreferanceCounts):-
+	people(TotalN),
+	N>TotalN.
+evaluate_permu(Permu, N, Count,PreferanceCounts):-
+	people(TotalN),
+	N=<TotalN,
+	NewN is N+1,
+	findall(Place,(member(Permu,Place),prefer(N,Place)),Places),
+	length(Places,ThisCount),
+	member(PreferanceCounts,[N,MaxCount]),
+	evaluate_permu(Permu, NewN, NewCount,PreferanceCounts),
+	(
+		ThisCount<MaxCount
+		->
+		Count = [ThisCount|NewCount];
+		places(M),
+		Count = [M| NewCount]
+	).
+
+find_max([],Ans,Ans).
+find_max([V|T],AnsBefore,Ans):-
+	(
+		V>AnsBefore
+		->
+		find_max(T,V,Ans);
+		find_max(T,AnsBefore,Ans)
+	).
+find_min([],Ans,Ans).
+find_min([V|T],AnsBefore,Ans):-
+	(
+		V<AnsBefore
+		->
+		find_min(T,V,Ans);
+		find_min(T,AnsBefore,Ans)
+	).
+preferance_count([],N):-
+	people(TotalN),
+	N>TotalN.
+preferance_count([[N,ThisCount]|Counts],N):-
+	people(TotalN),
+	N=<TotalN,
+	findall(Place,prefer(N,Place),Places),
+	length(Places,ThisCount),
+	NewN is N+1,
+	preferance_count(Counts,NewN).
+	
+main(satisfaction(Ans)):-
+	initialize(1,[],Ps),
+	findall(Permu,find_permutation(Ps,[],Permu,0),Permus),
+	%writeln(Permus),
+	preferance_count(PreferanceCounts,1),
+	findall(Count,(member(Permus,P),evaluate_permu(P,1,Count,PreferanceCounts)),Counts),
+	%writeln(Counts),
+	findall(MinCount,(member(Counts,Count),find_min(Count,1000,MinCount)),MinCounts),
+	%writeln(MinCounts),
+	find_max(MinCounts,-1,Ans).
+	 
+
+
+

@@ -77,7 +77,7 @@ check(Step,State,LastSource, LastTarget):-
 	check(NewStep,[[SourceV, NewSourceK],[TargetV, NewTargetK]|Rest], SourceV, TargetV).
 
 
-main(Now,split(no)):-
+main(Now,no):-
 	people(NPeople),
 	source(InitV),
 	capacity(InitV, InitK),
@@ -85,7 +85,7 @@ main(Now,split(no)):-
 	RecalculatedK =\= InitK,
 	!.
 	
-main(Now,split(no)):-
+main(Now,no):-
 	horizon(L),
 	Now>L,
 	!.
@@ -94,35 +94,16 @@ main(Now,Ans):-
 	horizon(L),
 	Now=<L,
 	initialize_state(1,[],State),
-	writeln(Now),
 	(
 		check(Now,State,-1,-1)
 		->
-		Ans=split(yes);
+		Ans=yes;
 		NewNow is Now+1,
 		main(NewNow,Ans)
 	).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
+main(split(Ans)):-
+	main(1,Ans).
 
 
 	

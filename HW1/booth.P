@@ -86,11 +86,11 @@ move(P0, P1, MinStep, NewMinStep, OldBID, OldDX, OldDY, BID, DX, DY, UsedCount, 
 	getMinSteps(BID,NewX,NewY,NewDis),
 	NewMinStep is MinStep-OldDis+NewDis,
 	UsedCount+NewMinStep=<MaxStepCount,
-	write('Move '),
-	write(BID),
-	write(' to '),
-	write(DX),
-	writeln(DY),
+	%write('Move '),
+	%write(BID),
+	%write(' to '),
+	%write(DX),
+	%writeln(DY),
 	P1=[[BID,NewX,NewY]|Rest].
 	
 tryStepCount(UsedCount, MaxStepCount,MinStep, Pos, _, _, _):-
@@ -111,14 +111,14 @@ tryStepCount(UsedCount, MaxStepCount,MinStep, Pos, _, _, _):-
 tryStepCount(UsedCount, MaxStepCount, MinStep, Pos, OldBID, OldDX, OldDY):-
 	UsedCount+MinStep=<MaxStepCount,
 	NewUsedCount is UsedCount+1,
-	write('---'),
-	writeln(NewUsedCount),
+	%write('---'),
+	%writeln(NewUsedCount),
 	move(Pos, NewPos, MinStep, NewMinStep, OldBID, OldDX, OldDY, BID, DX, DY, NewUsedCount, MaxStepCount),
 	tryStepCount(NewUsedCount, MaxStepCount, NewMinStep, NewPos, BID, DX, DY).
 
 
 main(StepCountNow, MinStepCount):-
-	writeln(StepCountNow),
+	%writeln(StepCountNow),
 	(
 		horizon(MaxCount),
 		StepCountNow>MaxCount
@@ -137,7 +137,8 @@ main(StepCountNow, MinStepCount):-
 		)
 	).
 
-
+main(moves(Ans)):-
+	main(1,Ans).
 %getMinSteps(OtherDis, Pos, TargetBID):-
 %	position(OtherBID,X0,Y0),
 %	member(Pos,[OtherBID,X1,Y1]),

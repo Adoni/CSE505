@@ -8,6 +8,18 @@ append([],L,L).
 append([H|T],L0,[H|L]):-
 	append(T,L0,L).
 
+remove_duplicate([],[]).
+remove_duplicate([X],[X]).
+remove_duplicate([X|T],L):-
+	member(T,X),
+	remove_duplicate(T,L).
+remove_duplicate([X|T],[X|L]):-
+	\+member(T,X),
+	remove_duplicate(T,L).
+
+
+	
+
 length([],0).
 length([_|L],Ans):-
 	length(L,AnsT),
@@ -58,9 +70,10 @@ construct_preferance(PreferanceNow,Preferance):-
 main(violations(Ans)):-
 	initialize(1,[],Ps),
 	findall([P,P1,P2],order(P,P1,P2),PreferanceNow),
-	construct_preferance(PreferanceNow,Preferance).
-	findall(V,find_permutation(Ps,[],_,0,V,Preferance),PossibleV),
-	writeln(PossibleV),
+	construct_preferance(PreferanceNow,Preferance),
+	writeln(Preferance),
+	remove_duplicate(Preferance,UnrepetePreferance),
+	findall(V,find_permutation(Ps,[],_,0,V,UnrepetePreferance),PossibleV),
 	find_min(PossibleV,1000000,Ans).
 	
 	 

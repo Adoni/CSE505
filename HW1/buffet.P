@@ -4,17 +4,6 @@ member([_|T], X) :- member(T, X).
 append([],L,L).
 append([H|T],L0,[H|L]):-
 	append(T,L0,L).
-
-main(Now,N):-
-	initialize_demand(1,[],Demands),
-	%writeln(Demands),
-	(
-		check(Now,Demands)
-		->
-		N is Now;
-		NewNow is Now+1,
-		main(NewNow,N)
-	).
 	
 initialize_demand(N,Demands,Demands):-
 	dishes(DishN),
@@ -92,14 +81,15 @@ good_place(HotW,CoolW):-
 	CoolW>0,
 	HotW+CoolW+Gap=<TableW.
 	
-
-test(X, L):-
-	member(L,X),
+main(Now,N):-
+	initialize_demand(1,[],Demands),
+	%writeln(Demands),
 	(
-		member(L,X),
-		%writeln(X),
-		fail
+		check(Now,Demands)
 		->
-		!;
-		fail
+		N is Now;
+		NewNow is Now+1,
+		main(NewNow,N)
 	).
+main(tables(Ans)):-
+	main(0,Ans).
