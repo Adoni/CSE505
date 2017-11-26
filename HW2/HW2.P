@@ -1,0 +1,57 @@
+member([X|_], X).
+
+member([_|T], X) :- member(T, X).
+
+append([],L,L).
+append([H|T],L0,[H|L]):-
+	append(T,L0,L).
+
+remove([X|T],X,T).
+remove([H|T],X,[H|L1]) :- remove(T,X,L1).
+
+length([],0).
+length([_|L],Ans):-
+	length(L,AnsT),
+	Ans is AnsT+1.
+
+	
+get_Clause(or(A,B),L):-
+	get_Clause(A,L1),
+	get_Clause(B,L2),
+	append(L1,L2,L),
+	!.
+
+get_Clause(A,[A]).
+
+get_ans(Old_S,Old_R, Old_R):-
+	member(Old_S,[_,[]]),
+	writeln('Success'),
+	!.
+
+get_ans(Old_S, Old_R, New_R):-
+	%writeln(Old_S),
+	%writeln(Old_R),
+	%writeln('--'),
+	member(Old_S,[CID1,C1]),
+	member(Old_S,[CID2,C2]),
+	CID1=\=CID2,
+	writeln(CID1),
+	writeln(CID2),
+	writeln('-----'),
+	remove(C1,T1,NewC1),
+	remove(C2, neg(T1),NewC2),
+	append(NewC1,NewC2,NewC),
+	\+member(Old_S,[_,NewC]),
+	length(Old_S, L),
+	NewCID is L+1,
+	get_ans([[NewCID,NewC]|Old_S], [[CID1,CID2,NewC,NewCID]|Old_R],New_R).
+	
+test(S,C1,C2):-
+	member(S,C1),
+	member(S,C2).
+	%writeln('===========').
+	
+main():-
+	findall([X,Z], (myClause(X,Y),get_Clause(Y,Z)), S),
+	get_ans(S,[],New_R),
+	writeln(New_R).

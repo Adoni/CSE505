@@ -1,0 +1,9 @@
+a(T-T):-!.
+a([X|T]-T):-!.
+a([H|Tail]-T):-
+	a(Tail-[H|T]).
+
+range(Start,End,[]):-Start>=End,!.
+range(Start,End,[Start|Y]):-
+	NewX is Start+1,
+	range(NewX,End,Y).
