@@ -1,0 +1,4 @@
+x:all
+y:all
+not,F,x,y
+F,y,x
