@@ -1,0 +1,5 @@
+all x|not,F,x,x
+all x,all y|not,F,x,y|F,y,x
+all x,exist y|F,x,y
+all x,all y|not,S,x|not,F,x,y|S,y
+all x|not,S,x|C,x
