@@ -1,0 +1,28 @@
+compress(T1,[],T1).
+compress([[X|T1]|T2],[X|T], L):-
+	compress([[X,X|T1]|T2],T,L).
+compress([[X|T1]|T2],[Y|T], L):-
+	X=\=Y,
+	compress([[Y],[X|T1]|T2],T,L).
+compress([],[X|T],L):-
+	compress([[X]],T,L).
+
+packHelper(_Elem, Prefix, [], [Prefix]).  
+packHelper(Elem, Prefix, [Elem|T], L):-  
+	!,
+	packHelper(Elem, [Elem|Prefix], T, L).  
+packHelper(_Elem, Prefix, [H2|T], [Prefix|L]):-  
+	packHelper(H2, [H2], T, L).  
+
+pack([], []).
+pack([H|T], L) :-
+	packHelper(H, [H], T, L).
+
+decode([(N,Alpha)|T1],[Alpha|T2]):-
+	N>0,
+	New_n is N-1,
+	decode([(New_n,Alpha)|T1],T2).
+decode([(0,_)|T1],T2):-
+	decode(T1,T2).
+
+decode([],[]).
