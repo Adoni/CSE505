@@ -1,0 +1,101 @@
+% !TEX root = main.tex
+
+\section{Paper Overview}
+
+\subsection{Basic Information}
+
+Here is some basic information about the paper I selected:
+
+\begin{itemize}
+    \item Title: Logic Tensor Networks: Deep Learning and Logical Reasoning from Data and Knowledge\cite{serafini2016logic}.
+    \item Author: Luciano Serafini and Artur d’Avila Garcez
+    \item From: ArXiv.2016
+    \item Abstract: This paper proposes Logic Tensor Networks (LTN) to integrate \textbf{learning} and \textbf{reasoning} together based on vector representation. The proposed model LTN represent each object with a vector and then converts each function on multiple objects into a manipulate on their vector representations. Then it also uses a s-norm operator to transform a predicate to a real number in $[0,1]$, which means the confidence of this predicate. Finally, it defines a lose function for all predicates, which means it transfers the reasoning process into a learning and optimization problem.
+\end{itemize}
+
+\subsection{Definitions}
+
+Recall that a first-order language $L$ is composed by three parts:
+\begin{itemize}
+    \item $\mathcal{C}=\{c_1,c_2,\dots\}$, the set of constant symbols;
+    \item $\mathcal{F}=\{f_1,f_2,\dots\}$, the set of functional symbols;
+    \item $\mathcal{P}=\{p_1,p_2,\dots\}$ the setof predicate symbols.
+\end{itemize}
+
+
+\subsection{Groundings}
+
+LTN defines a term $\mathcal{G}$, called \textbf{grounding}, which contains $\mathcal{G}(c)$, $\mathcal{G}(f)$, $\mathcal{G}(P)$ respect to $c \in \mathcal{C}$, $f\in \mathcal{F}$, $P \in \mathcal{P}$:
+
+Also, LTN define the manipulate of each clause $\phi$.
+
+\subsubsection{Constant}
+For each constant, LTN allocate a $n$-dimension vector to it:
+
+\begin{equation}
+    \mathcal{G}(c) \in \mathbb{R}^n
+\end{equation}
+
+\subsubsection{Function}
+
+For each function $f/m$ on $m$ parameters, LTN define it as a mapping on vector space, which means:
+
+\begin{equation}
+    \mathcal{G}(f(t_1,t_2,\dots,t_m)) \in \mathbb{R}^{mn}\rightarrow \mathbb{R}^n
+\end{equation}
+
+Note that here we specify the parameter of $f$ is $t_i$ instead of $c_i$ because function $f$ can be recursive like $f(f_1(c1,c2),f_2(c1,c3)$.
+
+\begin{equation}
+    \mathcal{G}(f(t_1,t_2,\dots,t_m))=\mathcal{G}(f)\mathcal{G}(t_1),\mathcal{G}(t_2),\dots,\mathcal{G}(t_m)
+\end{equation}
+
+More specifically, $\mathcal{G}(f(t_1,t_2,\dots,t_m))$ is fitted by a linear function, which can be implemented with tensor network:
+
+\begin{align}
+    \mathcal{G}(f(t_1,t_2,\dots,t_m)) =&\mathcal{G}(f)(v_1,v_2,\dots,v_m) \nonumber\\
+    =&\mathcal{G}(f)(v) \nonumber\\
+    =&M_f v+N_f
+\end{align}
+
+where $v=\left< v_1,v_2,\dots,v_m \right>$, $M_f \in \mathbb{R}^{n\times mn}$, and $N_f \in \mathbb{R}^{n}$
+
+\subsubsection{Predicate}
+
+Like the grounding of a function,
+
+\begin{equation}
+    \mathcal{G}(P(t_1,t_2,\dots,t_m)) \in \mathbb{R}^{mn}\rightarrow [0,1]
+\end{equation}
+
+Again, as $t_i$ has been mapped to a vector, then:
+
+\begin{equation}
+    \mathcal{G}(P(t_1,t_2,\dots,t_m))=\mathcal{G}(P)\mathcal{G}(t_1),\mathcal{G}(t_2),\dots,\mathcal{G}(t_m)
+\end{equation}
+
+Therefore we transfer a predicate into a series of manipulation on tensor space:
+
+\begin{align}
+    \mathcal{G}(P(t_1,t_2,\dots,t_m))=&\mathcal{G}(f)(v_1,v_2,\dots,v_m) \nonumber \\
+    =&\mathcal{G}(f)(v) \nonumber \\
+    =&\sigma(u_p^T tanh(v^{T} W_{P} v +V_Pv+B_P))
+\end{align}
+
+where $v=\left< v_1,v_2,\dots,v_m \right> \in \mathbb{R}^{mn} $, $W_P \in \mathbb{R}^{mn \times mn \times k}$, $V_P \in \mathbb{R}^{mn \times k}$, $B_P \in \mathbb{R}^{k}$, $u_P \in \mathbb{R}^{k}$, and $\sigma$ is the sigmoid function.
+
+\subsubsection{Clause}
+
+In this project, we assume each clause is disjunctive normal form. So it's easy to get that
+
+\begin{equation}
+    \mathcal{G}(\phi_1, \phi_2, \dots, \phi_k)=\mu(\mathcal{G}(\phi_1),\mathcal{G}(\phi_2),\dots,\mathcal{G}(\phi_k))
+\end{equation}
+
+where $\mu$ is the max function.
+
+\subsection{Optimization}
+
+So now we get the definition of all components of multi-valued first-order language in tensor networks. The next step is to define a proper lose function.
+
+Saying we know the value of $\phi(x)$ in our dataset, where $x$ is a constant. Intuitively, an optimal grouding should make $\mathcal{G}(\phi(t))$ as close as to $\phi(x)$.
