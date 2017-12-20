@@ -4,6 +4,7 @@
 # In[1]:
 
 
+#coding:utf8
 import matplotlib
 import os
 if 'DISPLAY' not in os.environ:
@@ -42,12 +43,12 @@ def get_accuracy(model,kb):
     return sum(results)/len(kb.clauses)
 
 
-# In[20]:
+# In[3]:
 
 
 def test_model(model,kb1, kb2,filename):
     kb_train=kb1.union(kb2)
-    optimizor=torch.optim.Adam(model.parameters(),lr=0.1,weight_decay=0.1)
+    optimizor=torch.optim.Adam(model.parameters(),lr=0.001)
     mone=torch.FloatTensor([-1])
     one=torch.FloatTensor([1])
     average_prob=[]
@@ -107,151 +108,31 @@ for tkb in gkbs4[1:]:
     gkb4=gkb4.union(tkb)
 
 
-# In[7]:
+# In[5]:
 
 
 emb_dim=50
 
 
-# In[22]:
+# In[6]:
 
 
-
-# In[24]:
-
+emb_dim_range=list(range(10,20,5))+list(range(20,101,20))
 
 
-
-# In[25]:
-
-
-
-prob1,loss1,first1,second1=pickle.load(open('./results/result1.pkl','rb'))
-prob2,loss2,first2,second2=pickle.load(open('./results/result2.pkl','rb'))
-
-
-# In[59]:
-
-
-plt.plot(prob1,label='LTN')
-plt.plot(prob2,label='C-LTN')
-plt.legend()
-plt.xlabel('Epoch')
-plt.ylabel('Average Probability')
-plt.savefig('./Report/img/curve1.pdf')
-plt.show()
-
-
-# In[61]:
-
-
-x = np.array(['LTN','C-LTN'])
-y1 = np.array([first1,first2])
-y2 = np.array([second1,second2])
-sns.barplot(x, y1)
-plt.ylabel("Accuracy")
-plt.ylim((0.5,1.0))
-plt.savefig('./Report/img/bar1.pdf')
-plt.show()
-
-sns.barplot(x, y2)
-plt.ylabel("Accuracy")
-plt.ylim((0.5,1.0))
-plt.savefig('./Report/img/bar2.pdf')
-plt.show()
-
-
-# In[38]:
-
-
-prob1,loss1,first1,second1=pickle.load(open('./results/result5.pkl','rb'))
-prob2,loss2,first2,second2=pickle.load(open('./results/result6.pkl','rb'))
-prob3,loss3,first3,second3=pickle.load(open('./results/result7.pkl','rb'))
-prob4,loss4,first4,second4=pickle.load(open('./results/result8.pkl','rb'))
-
-
-# In[62]:
-
-
-plt.plot(prob1,label='LTN')
-plt.plot(prob2,label='C-LTN')
-plt.plot(prob3,label='Weighted LTN')
-plt.plot(prob4,label='Weighted C-LTN')
-plt.legend()
-plt.xlabel('Epoch')
-plt.ylabel('Average Probability')
-plt.savefig('./Report/img/curve2.pdf')
-plt.show()
-
-
-# In[63]:
-
-
-x = np.array(['LTN','C-LTN','Weighted\nLTN','Weighted\nC-LTN'])
-y1 = np.array([first1,first2,first3,first4])
-y2 = np.array([second1,second2,second3,second4])
-sns.barplot(x, y1)
-plt.ylabel("Accuracy")
-plt.ylim((0.5,1.0))
-plt.savefig('./Report/img/bar3.pdf')
-plt.show()
-
-sns.barplot(x, y2)
-plt.ylabel("Accuracy")
-plt.ylim((0.5,1.0))
-plt.savefig('./Report/img/bar4.pdf')
-plt.show()
-
-
-# In[69]:
-
-
-emb_dim_range=list(range(1,21,5))+list(range(20,101,20))
-
-
-# In[52]:
+# In[ ]:
 
 
 for emb_dim in emb_dim_range:
     test_model(
-        model=LTN(emb_dim,'abcdefghijklmn',[['S',1],['F',2],['C',1]], CLTN=False),
-        kb1=kb1,
-        kb2=kb2,
-        filename='LTN_emb_dim=%d.pkl'%(emb_dim)
-    )
-
-
-# In[56]:
-
-
-for emb_dim in emb_dim_range:
-    test_model(
-        model=LTN(emb_dim,'abcdefghijklmn',[['S',1],['F',2],['C',1]], CLTN=False),
-        kb1=kb1.union(gkb1),
-        kb2=kb2.union(gkb2),
+        model=LTN(emb_dim,'abcdefghijklmn',[['S',1],['F',2],['C',1]], CLTN=True),
+        kb1=kb1.union(gkb3),
+        kb2=kb2.union(gkb4),
         filename='LTN_Learn_emb_dim=%d.pkl'%(emb_dim)
     )
 
 
-# In[67]:
-
-
-accuracys1=[]
-accuracys2=[]
-for emb_dim in emb_dim_range:
-    prob,loss,first,second=pickle.load(open('./results/LTN_emb_dim=%d.pkl'%(emb_dim),'rb'))
-    accuracys1.append(first)
-    accuracys2.append(second)
-plt.plot(emb_dim_range,accuracys1,label='Group1')
-plt.plot(emb_dim_range,accuracys2,label='Group2')
-plt.legend()
-plt.xlabel('Vector Length')
-plt.ylabel('Accuracy')
-plt.savefig('./Report/img/curve3.pdf')
-plt.show()
-
-
-# In[68]:
+# In[80]:
 
 
 accuracys1=[]

@@ -55,7 +55,7 @@ class LTN_GPredicate(nn.Module):
 
 class CLTN_GPredicate(nn.Module):
     def __init__(self, name, variable_count, emb_dim):
-        super(GPredicate, self).__init__()
+        super(CLTN_GPredicate, self).__init__()
         self.name = name
         self.variable_count = variable_count
         self.emb_dim = emb_dim

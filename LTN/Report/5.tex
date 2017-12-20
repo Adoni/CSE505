@@ -1,0 +1,51 @@
+% !TEX root = main.tex
+
+\section{Related Work}
+Here we try to compare LTN with some other models which try to combine learning and logical reasoning together.
+
+\begin{table*}[]
+    \centering
+    \begin{tabularx}{\textwidth}{L{0.2\textwidth}|L{0.35\textwidth}|L{0.35\textwidth}}
+        \toprule
+        Model X & Feature of Model X  & Feature of LTN \\
+        \midrule
+        Markov Logic \newline Network
+        &
+        -The level of truth of a formula depends on the number of models that satisfy the formula
+
+        -Works under the closed world assumption
+        &
+        -The level of truth of a complex formula is -determined by (fuzzy) logical reasoning
+
+        -Works under open domain
+        \\
+        \midrule
+        Bayesian Logic
+        &
+        Explicit probabilistic approach
+        &
+        Take the benefits of tensor networks for computational efficiency.
+        \\
+        \midrule
+        Knowledge \newline Embedding
+        &
+        -Function-free langauges
+
+        -A special case of LTN
+
+        -The semantics of the universal and existential quantifiers is based on the closed-world assumption (CWA)
+
+        &
+        -Provide groundings for functional symbols
+
+        -A General model
+
+        -Does not make the CWA
+
+        -No specific t-norm
+        \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Comparison with Similar Model}
+    \label{tab:my_label}
+\end{table*}
