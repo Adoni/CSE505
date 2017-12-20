@@ -60,22 +60,24 @@ class Propositional:
         self.conditions = conditions
         self.clause = clause
 
-    def generate_knowledge_base(self, constants):
+    def generate_knowledge_base(self, constants, change_weight):
         self.knowledge_base = KnowledgeBase([self.clause])
         for condition in self.conditions:
             new_knowledge_base = self.bound_knowledge_base(
-                self.knowledge_base, condition[1], constants, condition[0])
+                self.knowledge_base, condition[1], constants, condition[0],
+                change_weight)
             self.knowledge_base = new_knowledge_base
         return self.knowledge_base
 
     def bound_knowledge_base(self, knowledge_base, variable, constants,
-                             existential):
+                             existential, change_weight):
         clauses = []
         for clause in knowledge_base.clauses:
             clauses += self.bound_clause_variable_with_constants(
                 clause, variable, constants, existential)
-        for i in range(len(clauses)):
-            clauses[i].weight = 1.0 / len(clauses)
+        if change_weight:
+            for i in range(len(clauses)):
+                clauses[i].weight = 1.0 / len(clauses)
         return KnowledgeBase(clauses=clauses)
 
     def bound_clause_variable_with_constants(self, clause, variable, constants,
