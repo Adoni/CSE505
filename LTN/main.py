@@ -110,76 +110,20 @@ for tkb in gkbs4[1:]:
 # In[7]:
 
 
-emb_dim=10
+emb_dim=50
 
 
 # In[22]:
 
 
-test_model(
-    model=LTN(emb_dim,'abcdefghijklmn',[['S',1],['F',2],['C',1]], CLTN=False),
-    kb1=kb1,
-    kb2=kb2,
-    filename='result1.pkl'
-)
-
-
-# In[23]:
-
-
-test_model(
-    model=LTN(emb_dim,'abcdefghijklmn',[['S',1],['F',2],['C',1]], CLTN=True),
-    kb1=kb1,
-    kb2=kb2,
-    filename='result2.pkl'
-)
-
 
 # In[24]:
 
 
-test_model(
-    model=LTN(emb_dim,'abcdefghijklmn',[['S',1],['F',2],['C',1]], CLTN=False),
-    kb1=kb1.union(gkb1),
-    kb2=kb2.union(gkb2),
-    filename='result5.pkl'
-)
 
 
 # In[25]:
 
-
-test_model(
-    model=LTN(emb_dim,'abcdefghijklmn',[['S',1],['F',2],['C',1]], CLTN=True),
-    kb1=kb1.union(gkb1),
-    kb2=kb2.union(gkb2),
-    filename='result6.pkl'
-)
-
-
-# In[26]:
-
-
-test_model(
-    model=LTN(emb_dim,'abcdefghijklmn',[['S',1],['F',2],['C',1]], CLTN=False),
-    kb1=kb1.union(gkb3),
-    kb2=kb2.union(gkb4),
-    filename='result7.pkl'
-)
-
-
-# In[27]:
-
-
-test_model(
-    model=LTN(emb_dim,'abcdefghijklmn',[['S',1],['F',2],['C',1]], CLTN=True),
-    kb1=kb1.union(gkb3),
-    kb2=kb2.union(gkb4),
-    filename='result8.pkl'
-)
-
-
-# In[29]:
 
 
 prob1,loss1,first1,second1=pickle.load(open('./results/result1.pkl','rb'))
@@ -220,10 +164,10 @@ plt.show()
 # In[38]:
 
 
-prob1,loss1,first1,second1=pickle.load(open('./results/result1.pkl','rb'))
-prob2,loss2,first2,second2=pickle.load(open('./results/result2.pkl','rb'))
-prob3,loss3,first3,second3=pickle.load(open('./results/result3.pkl','rb'))
-prob4,loss4,first4,second4=pickle.load(open('./results/result4.pkl','rb'))
+prob1,loss1,first1,second1=pickle.load(open('./results/result5.pkl','rb'))
+prob2,loss2,first2,second2=pickle.load(open('./results/result6.pkl','rb'))
+prob3,loss3,first3,second3=pickle.load(open('./results/result7.pkl','rb'))
+prob4,loss4,first4,second4=pickle.load(open('./results/result8.pkl','rb'))
 
 
 # In[62]:
