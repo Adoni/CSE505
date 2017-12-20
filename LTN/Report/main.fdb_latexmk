@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex main"] 1513717604 "main.aux" "main.bbl" "main" 1513717606
+["bibtex main"] 1513719884 "main.aux" "main.bbl" "main" 1513719920
   "./IEEEtran.bst" 1440622569 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "main.aux" 1513717605 3129 695f9bfafcff0e374ed7dc792f0dccb7 ""
+  "main.aux" 1513719918 3307 685cb8ffa2e6bc52892b98cebfef19b1 ""
   "reference.bib" 1513714445 461 9257a1b3b19ab97a77aea8f7aa2a99e6 ""
   (generated)
   "main.blg"
   "main.bbl"
-["pdflatex"] 1513717604 "main.tex" "main.pdf" "main" 1513717606
+["pdflatex"] 1513719915 "main.tex" "main.pdf" "main" 1513719920
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc" 1480098666 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1480098689 2172 fd0c924230362ff848a33632ed45dc23 ""
@@ -96,19 +96,20 @@
   "/usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt" 1496976258 4129591 329fa48a078c0c8441c75eb0ccdb32b5 ""
   "/usr/local/texlive/2017/texmf.cnf" 1495593465 577 2b71d4d888f9e5560b2e99985915a9fa ""
   "1.tex" 1513714550 4254 a96510853f84cc98383e86fae9299984 ""
-  "2.tex" 1513717497 187 ec7271890915e96fdbc08c88fe231119 ""
+  "2.tex" 1513719913 358 75daa54244f40e39fc0d101af3370364 ""
   "3.tex" 1513717601 143 fca924cbaba952d4a5cbdd7a10eb0211 ""
   "4.tex" 1513717553 57 94366dbcf8b92710ebe93104cf7b6629 ""
   "IEEEtran.cls" 1412957230 202657 f6698b073bb6e66a6e6436a00d85499c ""
-  "main.aux" 1513717605 3129 695f9bfafcff0e374ed7dc792f0dccb7 ""
-  "main.bbl" 1513717604 1075 17e19970b148d18015d4b45fad1ae27c "bibtex main"
-  "main.out" 1513717605 1215 eb31631a5e329db958b73b415a554cd7 ""
+  "img/Predicate.pdf" 1513719726 12023 19dc27e2869675a3eaad39da477f057b ""
+  "main.aux" 1513719918 3307 685cb8ffa2e6bc52892b98cebfef19b1 ""
+  "main.bbl" 1513719885 1075 17e19970b148d18015d4b45fad1ae27c "bibtex main"
+  "main.out" 1513719918 1215 eb31631a5e329db958b73b415a554cd7 ""
   "main.tex" 1513715958 1545 4c6e378909732fe07ebb16c2d1d90b45 ""
   (generated)
-  "main.pdf"
+  "main.out"
   "main.log"
   "main.run.xml"
   "main.aux"
-  "main.out"
   "main.bcf"
+  "main.pdf"
   "bibi.bib"
