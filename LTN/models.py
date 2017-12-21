@@ -55,7 +55,7 @@ class LTN_GPredicate(nn.Module):
 
 class CLTN_GPredicate(nn.Module):
     def __init__(self, name, variable_count, emb_dim):
-        super(CLTN_GPredicate, self).__init__()
+        super(GPredicate, self).__init__()
         self.name = name
         self.variable_count = variable_count
         self.emb_dim = emb_dim
@@ -63,28 +63,21 @@ class CLTN_GPredicate(nn.Module):
         self.variable_count = variable_count
 
         self.conv = nn.Sequential(
-            #             nn.Conv2d(1,2,(1,4),(1,2),(0,1)),
-            nn.Conv2d(1, 2, (3, 4), (1, 2), 1),
-            #             nn.BatchNorm2d(2),
-            #             nn.LeakyReLU(inplace=True),
-            nn.Tanh(),
-
-            #             nn.Conv2d(2,4,(1,4),(1,2),(0,1)),
-            nn.Conv2d(2, 4, (3, 4), (1, 2), 1),
-            #             nn.BatchNorm2d(4),
-            #             nn.LeakyReLU(inplace=True),
-            nn.Tanh(),
-
-            #             nn.Conv2d(4,8,(1,4),(1,2),(0,1)),
-            nn.Conv2d(4, 8, (3, 4), (1, 2), 1),
-            #             nn.BatchNorm2d(8),
+            nn.Conv2d(1, 4, 4, 2, 1),
+            nn.BatchNorm2d(4),
             nn.LeakyReLU(inplace=True),
-            nn.Tanh(),
+            nn.Conv2d(4, 8, 4, 2, 1),
+            nn.BatchNorm2d(8),
+            nn.LeakyReLU(inplace=True),
+            nn.Conv2d(8, 16, 4, 2, 1),
+            nn.BatchNorm2d(16),
+            nn.LeakyReLU(inplace=True),
         )
         self.linear = nn.Sequential(
-            nn.Linear(8 * variable_count * (emb_dim // 8), 1), nn.Sigmoid())
+            nn.Linear(16 * (emb_dim // 8)**2, 1), nn.Sigmoid())
 
     def forward(self, embs, negation):
+        embs = embs.t().mm(embs)
         embs = embs.view(1, 1, embs.size()[0], embs.size()[1])
         conv = self.conv(embs)
         conv = conv.view(conv.size()[0], -1)
