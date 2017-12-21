@@ -22,52 +22,6 @@
     % \vspace{-1.2em}
 \end{figure}
 
-\begin{table*}[t]
-    \centering
-    \begin{tabularx}{\textwidth}{L{0.2\textwidth}|L{0.35\textwidth}|L{0.35\textwidth}}
-        \toprule
-        Model X & Feature of Model X  & Feature of LTN \\
-        \midrule
-        Markov Logic \newline Network \cite{wang2008hybrid}
-        &
-        -The level of truth of a formula depends on the number of models that satisfy the formula
-
-        -Works under the closed world assumption
-        &
-        -The level of truth of a complex formula is -determined by (fuzzy) logical reasoning
-
-        -Works under open domain
-        \\
-        \midrule
-        Bayesian Logic \cite{milch20071}
-        &
-        Explicit probabilistic approach
-        &
-        Take the benefits of tensor networks for computational efficiency.
-        \\
-        \midrule
-        Knowledge \newline Embedding \cite{rocktaschel2015injecting}
-        &
-        -Function-free langauges
-
-        -A special case of LTN
-
-        -The semantics of the universal and existential quantifiers is based on the closed-world assumption (CWA)
-
-        &
-        -Provide groundings for functional symbols
-
-        -A General model
-
-        -Does not make the CWA
-
-        -No specific t-norm
-        \\
-        \bottomrule
-    \end{tabularx}
-    \caption{Comparison with Similar Model}
-    \label{tab:compare}
-\end{table*}
 
 In this part, we want to test the effect of vector length. We enumerate the vector length from 1 to 100 and shows the best accuracy on two groups. We did our experiments on both observed data and weighted dataset with rule. As the performance of C-LNT is better than LNT, we only shows the result of C-LNT, which is shown in Figure \ref{fig:sensitive}.
 

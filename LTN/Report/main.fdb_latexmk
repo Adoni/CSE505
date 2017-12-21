@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex main"] 1513829717 "main.aux" "main.bbl" "main" 1513829876
+["bibtex main"] 1513830239 "main.aux" "main.bbl" "main" 1513830241
   "./IEEEtran.bst" 1440622569 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "main.aux" 1513829718 8319 5a41de873680e24ecb29fa4ccc48eb5a ""
+  "main.aux" 1513830241 8319 faa2147e4a1ead9f0f5e846791c81d4b ""
   "reference.bib" 1513826051 1200 0e8482d848b38241ffffd90a70c80a03 ""
   (generated)
   "main.blg"
   "main.bbl"
-["pdflatex"] 1513829717 "main.tex" "main.pdf" "main" 1513829876
+["pdflatex"] 1513830239 "main.tex" "main.pdf" "main" 1513830241
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc" 1480098666 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1480098689 2172 fd0c924230362ff848a33632ed45dc23 ""
@@ -102,10 +102,10 @@
   "3.1.tex" 1513824089 801 a3f5a9957ca434fc25d81021d8cc19fd ""
   "3.2.tex" 1513826558 5107 c6de74168b6e3398d97db44215a3bd4d ""
   "3.3.tex" 1513826734 4588 ed0aeaa965420764dce9c3ebbd98fb67 ""
-  "3.4.tex" 1513827148 2733 db63d456c6ea6dccd75bddc82616612a ""
+  "3.4.tex" 1513830231 1395 652404bc8c4b66a23130d139a6dafada ""
   "3.tex" 1513828704 649 23cb0b56fd1797fe49a926881a90b673 ""
   "4.tex" 1513827456 488 a682eaafd76c95bdfe00c79ec01db70d ""
-  "5.tex" 1513827194 504 ee4fe607cae616716d59a2207feb3102 ""
+  "5.tex" 1513830235 1843 debef72a80cc9c0c220da5ff3861402b ""
   "IEEEtran.cls" 1412957230 202657 f6698b073bb6e66a6e6436a00d85499c ""
   "img/CLTN_Predicate.pdf" 1513821304 12531 dbc57f9c10d572840592e0e0c5a38e84 ""
   "img/Predicate.pdf" 1513822595 11681 3292671eb9c85f9baaf90a02ea2bf575 ""
@@ -118,15 +118,15 @@
   "img/curve3.pdf" 1513816656 11748 4ce9121b4408aa1d693e9a898b2d25eb ""
   "img/curve4.pdf" 1513816692 12130 e826f99bccfacf5e9b0092ae7316f837 ""
   "img/example.png" 1513790025 342398 38066d2e4d665aacab09ed5384d2d8c7 ""
-  "main.aux" 1513829718 8319 5a41de873680e24ecb29fa4ccc48eb5a ""
-  "main.bbl" 1513829717 1855 c4c46a1339b6871f671d608fc140e61b "bibtex main"
-  "main.out" 1513829718 1396 753fcd43be9b67029f1d16435c73ea3d ""
-  "main.tex" 1513827497 2498 142c951155d8c5b49493f90f891d1b48 ""
+  "main.aux" 1513830241 8319 faa2147e4a1ead9f0f5e846791c81d4b ""
+  "main.bbl" 1513830239 1855 c4c46a1339b6871f671d608fc140e61b "bibtex main"
+  "main.out" 1513830241 1396 548790924498b29750a3c9343b36a77f ""
+  "main.tex" 1513830204 2498 eca33a21b03aeeae14705befc7a40528 ""
   (generated)
   "main.run.xml"
-  "main.pdf"
-  "main.out"
   "main.log"
   "main.bcf"
   "main.aux"
+  "main.pdf"
+  "main.out"
   "bibi.bib"
