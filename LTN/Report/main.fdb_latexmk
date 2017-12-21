@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex main"] 1513829114 "main.aux" "main.bbl" "main" 1513829117
+["bibtex main"] 1513829717 "main.aux" "main.bbl" "main" 1513829876
   "./IEEEtran.bst" 1440622569 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "main.aux" 1513829116 8286 24662f67e591c027508cd252da43d541 ""
+  "main.aux" 1513829718 8319 5a41de873680e24ecb29fa4ccc48eb5a ""
   "reference.bib" 1513826051 1200 0e8482d848b38241ffffd90a70c80a03 ""
   (generated)
-  "main.bbl"
   "main.blg"
-["pdflatex"] 1513829115 "main.tex" "main.pdf" "main" 1513829117
+  "main.bbl"
+["pdflatex"] 1513829717 "main.tex" "main.pdf" "main" 1513829876
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc" 1480098666 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1480098689 2172 fd0c924230362ff848a33632ed45dc23 ""
@@ -98,7 +98,7 @@
   "/usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt" 1496976258 4129591 329fa48a078c0c8441c75eb0ccdb32b5 ""
   "/usr/local/texlive/2017/texmf.cnf" 1495593465 577 2b71d4d888f9e5560b2e99985915a9fa ""
   "1.tex" 1513825148 4254 6a005a7d5f75d643cf547c23caf3f381 ""
-  "2.tex" 1513829111 2783 f84420663905e11395fad17abc11306f ""
+  "2.tex" 1513829874 3409 6b3b2568a87cc72e51b2b6e9a265c0de ""
   "3.1.tex" 1513824089 801 a3f5a9957ca434fc25d81021d8cc19fd ""
   "3.2.tex" 1513826558 5107 c6de74168b6e3398d97db44215a3bd4d ""
   "3.3.tex" 1513826734 4588 ed0aeaa965420764dce9c3ebbd98fb67 ""
@@ -118,15 +118,15 @@
   "img/curve3.pdf" 1513816656 11748 4ce9121b4408aa1d693e9a898b2d25eb ""
   "img/curve4.pdf" 1513816692 12130 e826f99bccfacf5e9b0092ae7316f837 ""
   "img/example.png" 1513790025 342398 38066d2e4d665aacab09ed5384d2d8c7 ""
-  "main.aux" 1513829116 8286 24662f67e591c027508cd252da43d541 ""
-  "main.bbl" 1513829115 1855 c4c46a1339b6871f671d608fc140e61b "bibtex main"
-  "main.out" 1513829116 1395 258f95b4de4eb58f241232ba4625663d ""
+  "main.aux" 1513829718 8319 5a41de873680e24ecb29fa4ccc48eb5a ""
+  "main.bbl" 1513829717 1855 c4c46a1339b6871f671d608fc140e61b "bibtex main"
+  "main.out" 1513829718 1396 753fcd43be9b67029f1d16435c73ea3d ""
   "main.tex" 1513827497 2498 142c951155d8c5b49493f90f891d1b48 ""
   (generated)
-  "main.aux"
-  "main.bcf"
   "main.run.xml"
-  "bibi.bib"
-  "main.out"
   "main.pdf"
+  "main.out"
   "main.log"
+  "main.bcf"
+  "main.aux"
+  "bibi.bib"
