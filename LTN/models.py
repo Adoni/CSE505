@@ -87,6 +87,15 @@ class CLTN_GPredicate(nn.Module):
         return output
 
 
+def weights_init(m):
+    classname = m.__class__.__name__
+    if classname.find('Conv') != -1:
+        m.weight.data.normal_(0.0, 0.02)
+    elif classname.find('BatchNorm') != -1:
+        m.weight.data.normal_(1.0, 0.02)
+        m.bias.data.fill_(0)
+
+
 class LTN(nn.Module):
     def __init__(self, emb_dim, constants, predicates, CLTN):
         super(LTN, self).__init__()
@@ -98,6 +107,7 @@ class LTN(nn.Module):
                 self.Predicates[name] = LTN_GPredicate(name, n, emb_dim)
             else:
                 self.Predicates[name] = CLTN_GPredicate(name, n, emb_dim)
+                self.Predicates[name].apply(weights_init)
 
     def forward(self, clause):
         Phi = None

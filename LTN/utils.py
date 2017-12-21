@@ -8,6 +8,8 @@ from matplotlib import pyplot as plt
 import seaborn as sns
 from tqdm import tqdm
 import copy
+import pandas as pd
+import numpy
 
 
 class Predicate:
@@ -149,3 +151,78 @@ def load_propositional(filename):
         propositionals.append(
             Propositional(v, w, condition, Clause(v, w, predicates)))
     return propositionals
+
+
+def get_DF_S(model, constants):
+    constants = list(constants)
+    df = pd.DataFrame(index=constants, columns=['S'])
+    for a in constants:
+        clause = Clause(1, 1,
+                        [Predicate(name='S', variables=[a], negation=False)])
+        result = model.forward(clause)
+        df['S'][a] = '%0.2f' % result[1].data.numpy()[0]
+    return df
+
+
+def get_DF_C(model, constants):
+    constants = list(constants)
+    df = pd.DataFrame(index=constants, columns=['C'])
+    for a in constants:
+        clause = Clause(1, 1,
+                        [Predicate(name='C', variables=[a], negation=False)])
+        result = model.forward(clause)
+        df['C'][a] = '%0.2f' % result[1].data.numpy()[0]
+    return df
+
+
+def get_DF_F(model, constants):
+    constants = list(constants)
+    df = pd.DataFrame(index=constants, columns=constants)
+    for a in constants:
+        for b in constants:
+            #             if a>=b:
+            #                 df[b][a]='-'
+            #                 continue
+            clause = Clause(
+                1, 1, [Predicate(name='F', variables=[a, b], negation=False)])
+            result = model.forward(clause)
+            df[b][a] = '%0.2f' % result[1].data.numpy()[0]
+    return df
+
+
+def get_DF(model, constants):
+    df1 = get_DF_S(model, constants)
+    df2 = get_DF_C(model, constants)
+    df3 = get_DF_F(model, constants)
+    df = pd.concat([df1, df2, df3], axis=1)
+    return df
+
+
+def get_accuracy(model, kb):
+    results = []
+    for clause in kb.clauses:
+        o1, o2 = model.forward(clause)
+        if o2.data.numpy()[0][0] > 0.9:
+            results.append(1.0)
+        else:
+            results.append(0.0)
+
+    return sum(results) / len(kb.clauses)
+
+
+def show_learned_propositionals(model, propositionals):
+    results = pd.DataFrame(
+        index=range(len(propositionals)),
+        columns=['Propositional', 'Group1', 'Group2'])
+    for i, propositional in enumerate(propositionals):
+        total = 0
+        true_count = 0
+        kkk1 = propositional.generate_knowledge_base(
+            'abcdefgh', change_weight=False)
+        kkk2 = propositional.generate_knowledge_base(
+            'ijklmn', change_weight=False)
+        a1 = get_accuracy(model, kkk1)
+        a2 = get_accuracy(model, kkk2)
+        results.iloc[i] = dict(
+            Propositional=propositional.clause.show(), Group1=a1, Group2=a2)
+    return results
