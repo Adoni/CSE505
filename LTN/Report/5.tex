@@ -1,51 +1,7 @@
 % !TEX root = main.tex
 
 \section{Related Work}
-Here we try to compare LTN with some other models which try to combine learning and logical reasoning together.
 
-\begin{table*}[]
-    \centering
-    \begin{tabularx}{\textwidth}{L{0.2\textwidth}|L{0.35\textwidth}|L{0.35\textwidth}}
-        \toprule
-        Model X & Feature of Model X  & Feature of LTN \\
-        \midrule
-        Markov Logic \newline Network
-        &
-        -The level of truth of a formula depends on the number of models that satisfy the formula
+As described in the original paper \cite{serafini2016logic}, there are several models which are similar to LTN. All of them try to combine learning and logical reasoning together.
 
-        -Works under the closed world assumption
-        &
-        -The level of truth of a complex formula is -determined by (fuzzy) logical reasoning
-
-        -Works under open domain
-        \\
-        \midrule
-        Bayesian Logic
-        &
-        Explicit probabilistic approach
-        &
-        Take the benefits of tensor networks for computational efficiency.
-        \\
-        \midrule
-        Knowledge \newline Embedding
-        &
-        -Function-free langauges
-
-        -A special case of LTN
-
-        -The semantics of the universal and existential quantifiers is based on the closed-world assumption (CWA)
-
-        &
-        -Provide groundings for functional symbols
-
-        -A General model
-
-        -Does not make the CWA
-
-        -No specific t-norm
-        \\
-        \bottomrule
-    \end{tabularx}
-    \caption{Comparison with Similar Model}
-    \label{tab:my_label}
-\end{table*}
+To avoid unnecessary details, here we try to compare LTN with some other models by listing the most important different features in Table \ref{tab:compare}. It seems that LTN combines the advantages of those models, which gives some confidence about the power of this model.

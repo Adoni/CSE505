@@ -65,19 +65,19 @@ where $v=\left< v_1,v_2,\dots,v_m \right>$, $M_f \in \mathbb{R}^{n\times mn}$, a
 Like the grounding of a function,
 
 \begin{equation}
-    \mathcal{G}(P(t_1,t_2,\dots,t_m)) \in \mathbb{R}^{mn}\rightarrow [0,1]
+    \mathcal{G}(p(t_1,t_2,\dots,t_m)) \in \mathbb{R}^{mn}\rightarrow [0,1]
 \end{equation}
 
 Again, as $t_i$ has been mapped to a vector, then:
 
 \begin{equation}
-    \mathcal{G}(P(t_1,t_2,\dots,t_m))=\mathcal{G}(P)\mathcal{G}(t_1),\mathcal{G}(t_2),\dots,\mathcal{G}(t_m)
+    \mathcal{G}(p(t_1,t_2,\dots,t_m))=\mathcal{G}(P)\mathcal{G}(t_1),\mathcal{G}(t_2),\dots,\mathcal{G}(t_m)
 \end{equation}
 
 Therefore we transfer a predicate into a series of manipulation on tensor space:
 
 \begin{align}
-    \mathcal{G}(P(t_1,t_2,\dots,t_m))=&\mathcal{G}(f)(v_1,v_2,\dots,v_m) \nonumber \\
+    \mathcal{G}(p(t_1,t_2,\dots,t_m))=&\mathcal{G}(f)(v_1,v_2,\dots,v_m) \nonumber \\
     =&\mathcal{G}(f)(v) \nonumber \\
     =&\sigma(u_p^T tanh(v^{T} W_{P} v +V_Pv+B_P))
 \end{align}

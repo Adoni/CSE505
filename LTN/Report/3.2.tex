@@ -2,31 +2,32 @@
 
 \subsection{Fit Knowledge Base}
 
-\begin{figure*}[!]
+\begin{figure}[!]
     \centering
     % \vspace{-0.2em}
-    \begin{subfigure}[]{0.33\textwidth}
-        \includegraphics[width=\textwidth]{img/curve1.pdf}
-        \caption{Probability w.r.t. Epoch}
-        \label{fig:fitting-prob-epoch}
-        %\vspace{-0.3em}
-    \end{subfigure}~~~~
-    \begin{subfigure}[]{0.33\textwidth}
+    \begin{subfigure}[]{0.24\textwidth}
         \includegraphics[width=\textwidth]{img/bar1.pdf}
         \caption{Best Accuracy on Group1}
         \label{fig:fitting-best-accuracy-1}
         %\vspace{-0.3em}
     \end{subfigure}~~~~
-    \begin{subfigure}[]{0.33\textwidth}
+    \begin{subfigure}[]{0.24\textwidth}
         \includegraphics[width=\textwidth]{img/bar2.pdf}
         \caption{Best Accuracy on Group2}
         \label{fig:fitting-best-accuracy-2}
         %\vspace{-0.8em}
     \end{subfigure}
+
+    \begin{subfigure}[]{0.24\textwidth}
+        \includegraphics[width=\textwidth]{img/curve1.pdf}
+        \caption{Probability w.r.t. Epoch}
+        \label{fig:fitting-prob-epoch}
+        %\vspace{-0.3em}
+    \end{subfigure}
     \caption{Fitting Observed Facts.}
     \label{fig:fitting}
     % \vspace{-1.2em}
-\end{figure*}
+\end{figure}
 
 In this experiment, we only use the oberserved facts, which is $K_{exp1} = K^{SFC}_{a \dots h} \cup K^{SF}_{i\dots n}$.
 
@@ -80,11 +81,11 @@ Finally, in Table \ref{table:fitting-learned-rules}, we shows the reliability of
 \begin{tabular}{lll}
 \toprule
 Propositional           & Group1   & Group2   \\ \midrule
-¬F(x, x)                & 0.75     & 0.666667 \\
-¬F(x, y) ∨ F(y, x)      & 0.984375 & 0.944444 \\
-F(x, y)                 & 1        & 1        \\
-¬S(x) ∨ ¬F(x, y) ∨ S(y) & 0.953125 & 0.916667 \\
-¬S(x) ∨ C(x)            & 0.75     & 0.6666   \\ \bottomrule
+$\forall \neg F(x, x)$                & 0.75     & 0.666667 \\
+$\forall x y F(x,y)\rightarrow F(y,x) $      & 0.984375 & 0.944444 \\
+$\forall x \exists y F(x,y) $                 & 1        & 1        \\
+$\forall x y S(x) F(x,y)\rightarrow S(y) $ & 0.953125 & 0.916667 \\
+$\forall x S(x)\rightarrow C(x) $            & 0.75     & 0.6666   \\ \bottomrule
 \end{tabular}
 \caption{Learned Rules}
 \label{table:fitting-learned-rules}

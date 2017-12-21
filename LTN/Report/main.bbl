@@ -26,4 +26,23 @@ L.~Serafini and A.~d. Garcez, ``Logic tensor networks: Deep learning and
   logical reasoning from data and knowledge,'' \emph{arXiv preprint
   arXiv:1606.04422}, 2016.
 
+\bibitem{bergmann2008introduction}
+M.~Bergmann, \emph{An introduction to many-valued and fuzzy logic: semantics,
+  algebras, and derivation systems}.\hskip 1em plus 0.5em minus 0.4em\relax
+  Cambridge University Press, 2008.
+
+\bibitem{wang2008hybrid}
+J.~Wang and P.~M. Domingos, ``Hybrid markov logic networks.'' in \emph{AAAI},
+  vol.~8, 2008, pp. 1106--1111.
+
+\bibitem{milch20071}
+B.~Milch, B.~Marthi, S.~Russell, D.~Sontag, D.~L. Ong, and A.~Kolobov, ``1
+  blog: Probabilistic models with unknown objects,'' \emph{Statistical
+  relational learning}, p. 373, 2007.
+
+\bibitem{rocktaschel2015injecting}
+T.~Rockt{\"a}schel, S.~Singh, and S.~Riedel, ``Injecting logical background
+  knowledge into embeddings for relation extraction.'' in \emph{HLT-NAACL},
+  2015, pp. 1119--1129.
+
 \end{thebibliography}

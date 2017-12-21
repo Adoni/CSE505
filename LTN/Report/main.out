@@ -10,11 +10,13 @@
 \BOOKMARK [1][-]{section.2}{Models}{}% 10
 \BOOKMARK [2][-]{subsection.2.1}{Logic Tensor Network \(LTN\)}{section.2}% 11
 \BOOKMARK [2][-]{subsection.2.2}{Convolutional Logic Tensor Network \(CLTN\)}{section.2}% 12
-\BOOKMARK [1][-]{section.3}{Experiments}{}% 13
-\BOOKMARK [2][-]{subsection.3.1}{Friends and Smokers}{section.3}% 14
-\BOOKMARK [2][-]{subsection.3.2}{Fit Knowledge Base}{section.3}% 15
-\BOOKMARK [2][-]{subsection.3.3}{Learn From Rule}{section.3}% 16
-\BOOKMARK [2][-]{subsection.3.4}{Parameter Sensitive}{section.3}% 17
-\BOOKMARK [1][-]{section.4}{Details and Discussion}{}% 18
-\BOOKMARK [1][-]{section.5}{Related Work}{}% 19
-\BOOKMARK [1][-]{section*.14}{References}{}% 20
+\BOOKMARK [2][-]{subsection.2.3}{Universal and Existential Quantifiers}{section.2}% 13
+\BOOKMARK [2][-]{subsection.2.4}{Weighted Knowledge Base}{section.2}% 14
+\BOOKMARK [1][-]{section.3}{Experiments}{}% 15
+\BOOKMARK [2][-]{subsection.3.1}{Friends and Smokers}{section.3}% 16
+\BOOKMARK [2][-]{subsection.3.2}{Fit Knowledge Base}{section.3}% 17
+\BOOKMARK [2][-]{subsection.3.3}{Learn From Rule}{section.3}% 18
+\BOOKMARK [2][-]{subsection.3.4}{Parameter Sensitive}{section.3}% 19
+\BOOKMARK [1][-]{section.4}{Related Work}{}% 20
+\BOOKMARK [1][-]{section.5}{Conclusion}{}% 21
+\BOOKMARK [1][-]{section*.14}{References}{}% 22
